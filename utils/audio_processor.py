@@ -18,7 +18,6 @@ import shutil
 
 import imageio_ffmpeg
 import yt_dlp
-from pydub import AudioSegment
 
 from config import AUDIO_CHUNK_MINUTES, DOWNLOAD_DIR, FFMPEG_BIN_DIR
 
@@ -37,10 +36,12 @@ if not os.path.exists(_FFMPEG_EXE):
     shutil.copy2(_FFMPEG_SRC, _FFMPEG_EXE)
     logger.info("FFmpeg binary copied to %s", _FFMPEG_EXE)
 
-# Tell pydub and PATH where the binary lives
+# Inject path before importing pydub to silence the RuntimeWarning
+os.environ["PATH"] = FFMPEG_BIN_DIR + os.pathsep + os.environ.get("PATH", "")
+
+from pydub import AudioSegment
 AudioSegment.converter = _FFMPEG_EXE
 AudioSegment.ffmpeg = _FFMPEG_EXE
-os.environ["PATH"] = FFMPEG_BIN_DIR + os.pathsep + os.environ.get("PATH", "")
 # ─────────────────────────────────────────────────────────────────────────────
 
 os.makedirs(DOWNLOAD_DIR, exist_ok=True)
