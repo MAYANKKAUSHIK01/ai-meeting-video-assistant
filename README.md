@@ -1,9 +1,31 @@
-<div align="center">
 
+<div align="center">
 # 🔵 LENS — Meeting Intelligence
 
-<img width="1765" height="863" alt="LENS Screenshot" src="https://github.com/user-attachments/assets/9345997c-3283-4fde-8603-ab0b928dca2b" />
-
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9345997c-3283-4fde-8603-ab0b928dca2b" width="420"/>
+        <br/><sub><b>🏠 Dashboard Overview</b></sub>
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/36795106-5342-42ce-9b2e-7ed6a6b12dcf" width="420"/>
+        <br/><sub><b>📋 Summary & Key Decisions</b></sub>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/f79c171c-7606-48a4-aad8-7f4c07508fe5" width="420"/>
+        <br/><sub><b>✅ Action Items Extraction</b></sub>
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/fd259e6d-5fe9-4985-9179-76a1541933e1" width="420"/>
+        <br/><sub><b>💬 RAG Chat Q&A</b></sub>
+      </td>
+    </tr>
+  </table>
+</div>
 ### *Transform any meeting recording into structured intelligence*
 **Transcription · Summarisation · Action Items · Live Q&A Chat — all in one pipeline**
 
