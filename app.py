@@ -882,8 +882,29 @@ if run_btn:
                 Pipeline initialised — monitor progress in the sidebar.
             </div>""", unsafe_allow_html=True)
 
-            tick("audio", "active");      chunks     = process_input(source, chunk_minutes=chunk_minutes);               tick("audio", "done")
-            tick("transcript", "active"); transcript = transcribe_all(chunks, language, model_size=model_size);    tick("transcript", "done")
+            fast_transcript = None
+            if "youtube.com" in source or "youtu.be" in source:
+                tick("audio", "active")
+                try:
+                    from youtube_transcript_api import YouTubeTranscriptApi
+                    import urllib.parse as urlparse
+                    
+                    parsed = urlparse.urlparse(source)
+                    vid = parsed.path.lstrip("/") if "youtu.be" in parsed.netloc else urlparse.parse_qs(parsed.query).get("v", [None])[0]
+                    
+                    if vid:
+                        ts = YouTubeTranscriptApi.get_transcript(vid)
+                        fast_transcript = " ".join([t['text'].replace('\n', ' ') for t in ts])
+                        tick("audio", "done")
+                except Exception:
+                    pass # Fall back to yt-dlp downloading
+
+            if fast_transcript:
+                transcript = fast_transcript
+                tick("transcript", "done")
+            else:
+                tick("audio", "active");      chunks     = process_input(source, chunk_minutes=chunk_minutes);               tick("audio", "done")
+                tick("transcript", "active"); transcript = transcribe_all(chunks, language, model_size=model_size);    tick("transcript", "done")
             tick("title", "active");      title      = generate_title(transcript);          tick("title", "done")
             tick("summary", "active");    summary    = summarize(transcript);               tick("summary", "done")
 

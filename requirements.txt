@@ -11,8 +11,10 @@
 
 # ── Audio / Video acquisition ─────────────────────────────────────────────────
 yt-dlp>=2026.3.17             # YouTube audio download
+youtube-transcript-api>=1.2.4 # Ultra-fast direct YouTube transcript fetching (bypasses yt-dlp bot blocks)
 pydub>=0.25.1                 # Audio manipulation (chunking, format conversion)
 imageio-ffmpeg>=0.6.0         # Bundled FFmpeg binary — no system install needed
+
 
 # ── Speech-to-Text (Whisper) ──────────────────────────────────────────────────
 openai-whisper>=20250625      # Local Whisper STT model (date-versioned)
