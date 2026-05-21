@@ -89,6 +89,13 @@ def download_youtube_audio(url: str) -> str:
         "no_warnings": True,
     }
 
+    # ── Authenticated Bypass ──────────────────────────────────────────────────
+    # If the user provides a cookies.txt file (exported from a browser),
+    # use it to bypass the "Sign in to confirm you're not a bot" IP block.
+    if os.path.exists("cookies.txt"):
+        ydl_opts["cookiefile"] = "cookies.txt"
+        logger.info("Found cookies.txt — passing to yt-dlp for authenticated bypass.")
+
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=True)
         # prepare_filename gives the pre-postprocessor name; swap extension
