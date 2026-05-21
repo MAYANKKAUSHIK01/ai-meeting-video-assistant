@@ -73,12 +73,15 @@ def download_youtube_audio(url: str) -> str:
             }
         ],
         # ── Cloud bypass ──────────────────────────────────────────────────────
-        # Streamlit Cloud / AWS IPs are blocked by YouTube's datacenter filter.
-        # "android" player client currently has the highest success rate on cloud
-        # IPs without triggering the "Please sign in" wall.
+        # Aggressive bypass for AWS/GCP IPs:
+        # 1. Clear cache to prevent reusing banned tokens
+        # 2. Skip webpage JS loading which triggers captchas
+        # 3. Use ios/tv/mweb clients natively
+        "rm_cachedir": True,
         "extractor_args": {
             "youtube": {
-                "player_client": ["android"],
+                "player_client": ["ios", "tv", "mweb"],
+                "player_skip": ["webpage", "configs", "js"],
             }
         },
         # ─────────────────────────────────────────────────────────────────────
