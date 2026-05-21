@@ -174,9 +174,10 @@ All settings live in `.env`:
 
 | Variable | Default | Description |
 |---|---|---|
-| `WHISPER_MODEL` | `small` | `tiny` / `base` / `small` / `medium` / `large` |
+| `WHISPER_MODEL` | `base` | `tiny` / `base` / `small` / `medium` / `large` |
+| `WHISPER_COMPUTE_TYPE` | `int8` | Quantization for CPU speedup: `int8` / `float16` |
 | `MISTRAL_MODEL` | `mistral-small-latest` | Mistral model name |
-| `AUDIO_CHUNK_MINUTES` | `20` | Audio chunk length for transcription |
+| `AUDIO_CHUNK_MINUTES` | `10` | Audio chunk length for transcription |
 | `RAG_TOP_K` | `4` | Chunks retrieved per RAG query |
 | `SARVAM_MAX_WORKERS` | `4` | Concurrent Sarvam API calls |
 
