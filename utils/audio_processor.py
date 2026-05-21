@@ -77,9 +77,9 @@ def download_youtube_audio(url: str) -> str:
         "rm_cachedir": True,
         "extractor_args": {
             "youtube": {
-                # TV and mweb are less restricted than iOS and don't trigger
-                # the 403 Forbidden wall as aggressively.
-                "player_client": ["tv", "mweb"],
+                # 'tv' client triggers fake DRM streams.
+                # 'web_creator' and 'mweb' are the safest remaining fallbacks.
+                "player_client": ["web_creator", "mweb"],
             }
         },
         # ─────────────────────────────────────────────────────────────────────
