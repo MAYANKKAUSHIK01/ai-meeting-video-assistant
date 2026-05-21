@@ -13,7 +13,7 @@ from core.rag_engine import build_rag_chain, ask_question
 
 st.set_page_config(
     page_title="LENS — Meeting Intelligence",
-    page_icon="🔵",
+    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded",
 )
