@@ -609,7 +609,7 @@ footer                             { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 .stDeployButton                    { display: none !important; }
 
-/* Make header invisible WITHOUT display:none */
+/* Make header transparent — do NOT use display:none (would hide toggle) */
 header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
@@ -619,16 +619,7 @@ header[data-testid="stHeader"] {
     overflow: visible !important;
 }
 
-/* Force sidebar to always be visible — override Streamlit's collapse transform */
-[data-testid="stSidebar"] {
-    transform: none !important;
-    width: 21rem !important;
-    min-width: 21rem !important;
-    visibility: visible !important;
-    display: block !important;
-}
-
-/* Pin sidebar toggle as floating button — vivid so it stands out */
+/* Sidebar toggle — float it above all content, brand-styled and visible */
 [data-testid="stSidebarCollapseButton"] {
     display: flex !important;
     visibility: visible !important;
@@ -641,12 +632,10 @@ header[data-testid="stHeader"] {
     border: none !important;
     border-radius: 8px !important;
     padding: 0.3rem !important;
-    color: #fff !important;
 }
 [data-testid="stSidebarCollapseButton"] svg {
     fill: #fff !important;
     stroke: #fff !important;
-    color: #fff !important;
 }
 
 /* Keep the top animated stripe visible */
@@ -737,6 +726,30 @@ header[data-testid="stHeader"] {
     .await-card   { padding: 1.5rem 1rem !important; }
 }
 </style>
+""", unsafe_allow_html=True)
+
+# ── Auto-expand sidebar on load ───────────────────────────────────────────────
+# Streamlit saves the sidebar collapsed state to localStorage.
+# This JS snippet clicks the toggle button to open it if it's collapsed.
+st.markdown("""
+<script>
+(function expandSidebar() {
+    const check = setInterval(() => {
+        const sidebar = document.querySelector('[data-testid="stSidebar"]');
+        const btn = document.querySelector('[data-testid="stSidebarCollapseButton"]');
+        if (sidebar && btn) {
+            clearInterval(check);
+            const style = window.getComputedStyle(sidebar);
+            const matrix = new DOMMatrix(style.transform);
+            // If sidebar is translated off-screen (collapsed), click the button
+            if (matrix.m41 < -10) {
+                btn.click();
+            }
+        }
+    }, 200);
+    setTimeout(() => clearInterval(check), 5000); // give up after 5s
+})();
+</script>
 """, unsafe_allow_html=True)
 
 # ─── Session State ────────────────────────────────────────────────────────────
