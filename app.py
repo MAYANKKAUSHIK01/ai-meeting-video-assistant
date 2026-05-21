@@ -801,11 +801,16 @@ with st.sidebar:
 
     st.markdown('<span class="tag tag-dim">Input</span>', unsafe_allow_html=True)
 
-    source = st.text_input(
-        "Source",
-        placeholder="https://youtube.com/… or /path/to/file.mp4",
-        label_visibility="visible",
-    )
+    source_type = st.radio("Input Type", ["YouTube URL", "Upload File"], horizontal=True, label_visibility="collapsed")
+    
+    source = ""
+    uploaded_file = None
+    if source_type == "YouTube URL":
+        source = st.text_input("Source URL", placeholder="https://youtube.com/...", label_visibility="collapsed")
+    else:
+        uploaded_file = st.file_uploader("Upload Audio/Video", type=["mp4", "mp3", "wav", "m4a", "mov"], label_visibility="collapsed")
+        if uploaded_file:
+            source = "uploaded_file" # Dummy value to pass the empty check
     language = st.selectbox("Language", ["english", "hinglish"], index=0)
     
     # Model size selector for Local Whisper
@@ -903,8 +908,27 @@ if run_btn:
                 transcript = fast_transcript
                 tick("transcript", "done")
             else:
-                tick("audio", "active");      chunks     = process_input(source, chunk_minutes=chunk_minutes);               tick("audio", "done")
+                tick("audio", "active")
+                
+                # Handle File Upload for Cloud Deployments
+                if uploaded_file is not None:
+                    import tempfile
+                    import os
+                    # Create a temporary file to save the uploaded content
+                    temp_dir = tempfile.mkdtemp()
+                    temp_path = os.path.join(temp_dir, uploaded_file.name)
+                    with open(temp_path, "wb") as f:
+                        f.write(uploaded_file.getbuffer())
+                    
+                    # Pass the temporary file path to process_input
+                    chunks = process_input(temp_path, chunk_minutes=chunk_minutes)
+                else:
+                    # Pass the raw URL (or local path if running locally)
+                    chunks = process_input(source, chunk_minutes=chunk_minutes)
+                    
+                tick("audio", "done")
                 tick("transcript", "active"); transcript = transcribe_all(chunks, language, model_size=model_size);    tick("transcript", "done")
+                
             tick("title", "active");      title      = generate_title(transcript);          tick("title", "done")
             tick("summary", "active");    summary    = summarize(transcript);               tick("summary", "done")
 
