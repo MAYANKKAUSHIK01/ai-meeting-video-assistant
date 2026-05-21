@@ -26,6 +26,7 @@ downloads/
 downloades/
 ffmpeg_bin/
 vector_db/
+models/
 
 # ── Audio chunks (temporary pipeline files) ───────────────────────────────────
 *.wav

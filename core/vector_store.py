@@ -22,6 +22,7 @@ from config import (
     RAG_CHUNK_SIZE,
     RAG_TOP_K,
     VECTOR_DB_DIR,
+    MODELS_DIR,
 )
 
 logger = logging.getLogger(__name__)
@@ -38,9 +39,11 @@ def _get_embeddings() -> HuggingFaceEmbeddings:
 
         device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info("Loading embedding model '%s' on '%s'…", EMBEDDING_MODEL, device)
+        import os
         _embeddings = HuggingFaceEmbeddings(
             model_name=EMBEDDING_MODEL,
             model_kwargs={"device": device},
+            cache_folder=os.path.join(MODELS_DIR, "embeddings"),
         )
         logger.info("Embedding model ready.")
     return _embeddings
