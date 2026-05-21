@@ -601,41 +601,35 @@ hr { border: none !important; border-top: 1px solid rgba(124,111,255,0.15) !impo
     font-weight: 400;
 }
 
-/* ── Hide Streamlit chrome (toolbar, deploy button, header, footer) ── */
-#MainMenu                          { display: none !important; }
-footer                             { display: none !important; }
-[data-testid="stToolbar"]          { display: none !important; }
-[data-testid="stDeployButton"]     { display: none !important; }
-[data-testid="stDecoration"]       { display: none !important; }
-.stDeployButton                    { display: none !important; }
+/* ── Hide only unwanted Streamlit chrome — do NOT touch the header element ── */
+/* Hiding the header breaks the sidebar toggle button inside it.              */
+#MainMenu                        { display: none !important; }
+footer                           { display: none !important; }
+[data-testid="stDecoration"]     { display: none !important; }
+[data-testid="stDeployButton"]   { display: none !important; }
+.stDeployButton                  { display: none !important; }
 
-/* Make header transparent — do NOT use display:none (would hide toggle) */
+/* Style the header bar to match the dark theme instead of hiding it */
 header[data-testid="stHeader"] {
-    background: transparent !important;
-    border-bottom: none !important;
+    background: #090E1A !important;
+    border-bottom: 1px solid rgba(124, 111, 255, 0.1) !important;
     box-shadow: none !important;
-    height: 0 !important;
-    min-height: 0 !important;
-    overflow: visible !important;
 }
 
-/* Sidebar toggle — float it above all content, brand-styled and visible */
-[data-testid="stSidebarCollapseButton"] {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: fixed !important;
-    top: 0.5rem !important;
-    left: 0.5rem !important;
-    z-index: 999999 !important;
-    background: #7C6FFF !important;
-    border: none !important;
+/* Style the sidebar toggle button to match the brand theme */
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarCollapseButton"] > button {
+    background: transparent !important;
+    border: 1px solid rgba(124, 111, 255, 0.3) !important;
     border-radius: 8px !important;
-    padding: 0.3rem !important;
+    color: #A99BFF !important;
 }
 [data-testid="stSidebarCollapseButton"] svg {
-    fill: #fff !important;
-    stroke: #fff !important;
+    fill: #A99BFF !important;
+}
+[data-testid="stSidebarCollapseButton"] button:hover {
+    background: rgba(124, 111, 255, 0.15) !important;
+    border-color: #7C6FFF !important;
 }
 
 /* Keep the top animated stripe visible */
@@ -644,7 +638,6 @@ header[data-testid="stHeader"] {
 }
 
 
-/* ── Custom High-Fidelity Slider ── */
 [data-testid="stSlider"], .stSlider {
     background: rgba(255, 255, 255, 0.02) !important;
     border: 1px solid rgba(124, 111, 255, 0.15) !important;
@@ -726,30 +719,6 @@ header[data-testid="stHeader"] {
     .await-card   { padding: 1.5rem 1rem !important; }
 }
 </style>
-""", unsafe_allow_html=True)
-
-# ── Auto-expand sidebar on load ───────────────────────────────────────────────
-# Streamlit saves the sidebar collapsed state to localStorage.
-# This JS snippet clicks the toggle button to open it if it's collapsed.
-st.markdown("""
-<script>
-(function expandSidebar() {
-    const check = setInterval(() => {
-        const sidebar = document.querySelector('[data-testid="stSidebar"]');
-        const btn = document.querySelector('[data-testid="stSidebarCollapseButton"]');
-        if (sidebar && btn) {
-            clearInterval(check);
-            const style = window.getComputedStyle(sidebar);
-            const matrix = new DOMMatrix(style.transform);
-            // If sidebar is translated off-screen (collapsed), click the button
-            if (matrix.m41 < -10) {
-                btn.click();
-            }
-        }
-    }, 200);
-    setTimeout(() => clearInterval(check), 5000); // give up after 5s
-})();
-</script>
 """, unsafe_allow_html=True)
 
 # ─── Session State ────────────────────────────────────────────────────────────
