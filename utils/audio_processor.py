@@ -62,7 +62,12 @@ def download_youtube_audio(url: str) -> str:
     output_template = os.path.join(DOWNLOAD_DIR, "%(title)s.%(ext)s")
 
     ydl_opts = {
-        "format": "bestaudio/best",
+        # Fallback sequence:
+        # 1. 'ba' (best audio only)
+        # 2. 'b' (best multiplexed audio+video, usually format 18 or 22)
+        # 3. 'bestvideo+bestaudio'
+        # 4. 'best' (legacy)
+        "format": "ba/b/bestvideo+bestaudio/best",
         "outtmpl": output_template,
         "ffmpeg_location": FFMPEG_BIN_DIR,
         "postprocessors": [
