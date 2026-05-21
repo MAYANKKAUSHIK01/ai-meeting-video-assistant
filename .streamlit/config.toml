@@ -1,0 +1,19 @@
+[client]
+# "minimal" hides the Deploy button and most toolbar chrome.
+# "viewer" keeps a minimal toolbar but still hides Deploy.
+# Use "developer" locally if you need full debugging tools.
+toolbarMode = "minimal"
+
+[browser]
+# Disable anonymous usage statistics reporting to Streamlit.
+gatherUsageStats = false
+
+[runner]
+# Fixes module import warnings in some setups.
+magicEnabled = false
+
+[server]
+# Suppress the default "Running on http://..." header log spam.
+headless = true
+enableCORS = false
+enableXsrfProtection = true

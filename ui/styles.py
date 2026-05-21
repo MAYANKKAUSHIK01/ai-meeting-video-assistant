@@ -43,6 +43,20 @@ h1, h2, h3, h4, h5, h6,
     font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
+/* ── Hide Streamlit chrome (toolbar, deploy button, header, footer) ── */
+/* Handled by toolbarMode=minimal in .streamlit/config.toml — CSS is a fallback */
+#MainMenu                          { display: none !important; }
+header[data-testid="stHeader"]     { display: none !important; }
+footer                             { display: none !important; }
+[data-testid="stToolbar"]          { display: none !important; }
+[data-testid="stDeployButton"]     { display: none !important; }
+[data-testid="stDecoration"]       { display: none !important; }
+.stDeployButton                    { display: none !important; }
+/* Keep the top animated stripe visible despite header being hidden */
+.stApp::before {
+    display: block !important;
+}
+
 /* ── Keyframes ── */
 @keyframes barSlide {
     0%   { background-position: 0% 50%; }
