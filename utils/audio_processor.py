@@ -86,7 +86,14 @@ def download_youtube_audio(url: str) -> str:
     # use it to bypass the "Sign in to confirm you're not a bot" IP block.
     if os.path.exists("cookies.txt"):
         ydl_opts["cookiefile"] = "cookies.txt"
-        logger.info("Found cookies.txt — passing to yt-dlp for authenticated bypass.")
+        # Must force the 'web' client because browser cookies are web-session cookies.
+        # Mobile app clients (android/ios) will reject web cookies and return 0 formats.
+        ydl_opts["extractor_args"] = {
+            "youtube": {
+                "player_client": ["web"],
+            }
+        }
+        logger.info("Found cookies.txt — forcing 'web' client for authenticated bypass.")
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=True)
