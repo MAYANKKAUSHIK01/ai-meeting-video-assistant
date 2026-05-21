@@ -898,10 +898,12 @@ if run_btn:
                     vid = parsed.path.lstrip("/") if "youtu.be" in parsed.netloc else urlparse.parse_qs(parsed.query).get("v", [None])[0]
                     
                     if vid:
-                        ts = YouTubeTranscriptApi.get_transcript(vid)
-                        fast_transcript = " ".join([t['text'].replace('\n', ' ') for t in ts])
+                        ts = YouTubeTranscriptApi().fetch(vid)
+                        fast_transcript = " ".join([t.text.replace('\n', ' ') for t in ts])
                         tick("audio", "done")
-                except Exception:
+                except Exception as e:
+                    import logging
+                    logging.error(f"Transcript API failed: {e}")
                     pass # Fall back to yt-dlp downloading
 
             if fast_transcript:
