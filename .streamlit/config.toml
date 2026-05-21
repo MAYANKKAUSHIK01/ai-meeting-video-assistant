@@ -13,7 +13,7 @@ gatherUsageStats = false
 magicEnabled = false
 
 [server]
-# Suppress the default "Running on http://..." header log spam.
+# enableCORS and enableXsrfProtection cannot both be set to incompatible values.
+# Default: enableCORS=true, enableXsrfProtection=true (secure and compatible).
 headless = true
-enableCORS = false
 enableXsrfProtection = true

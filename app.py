@@ -1,3 +1,9 @@
+import os, warnings
+# Suppress noisy transformers / HuggingFace advisory warnings before any imports
+os.environ["TRANSFORMERS_NO_ADVISORY_WARNINGS"] = "1"
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 import streamlit as st
 import time
