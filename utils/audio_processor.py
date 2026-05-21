@@ -72,6 +72,24 @@ def download_youtube_audio(url: str) -> str:
                 "preferredquality": "192",
             }
         ],
+        # ── Cloud 403 bypass ──────────────────────────────────────────────────
+        # Streamlit Cloud / AWS IPs are blocked by YouTube's datacenter filter.
+        # Using the iOS and web_creator player clients bypasses this restriction
+        # because YouTube doesn't aggressively block mobile/creator clients.
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["ios", "web_creator"],
+            }
+        },
+        "http_headers": {
+            "User-Agent": (
+                "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "
+                "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 "
+                "Mobile/15E148 Safari/604.1"
+            ),
+            "Accept-Language": "en-US,en;q=0.9",
+        },
+        # ─────────────────────────────────────────────────────────────────────
         # Sanitise the title so the filename is always safe on all OSes
         "restrictfilenames": True,
         "quiet": True,
