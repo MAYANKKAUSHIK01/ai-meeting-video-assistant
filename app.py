@@ -597,13 +597,22 @@ hr { border: none !important; border-top: 1px solid rgba(124,111,255,0.15) !impo
 
 /* ── Hide Streamlit chrome (toolbar, deploy button, header, footer) ── */
 #MainMenu                          { display: none !important; }
-header[data-testid="stHeader"]     { display: none !important; }
 footer                             { display: none !important; }
 [data-testid="stToolbar"]          { display: none !important; }
 [data-testid="stDeployButton"]     { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 .stDeployButton                    { display: none !important; }
-/* Keep the top animated stripe visible despite header being hidden */
+/* Hide only header toolbar content, NOT the header wrapper itself
+   (header wrapper contains the sidebar collapse/expand toggle) */
+header[data-testid="stHeader"] > div:first-child { display: none !important; }
+/* Always keep the sidebar toggle button visible */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+/* Keep the top animated stripe visible */
 .stApp::before {
     display: block !important;
 }
