@@ -414,10 +414,10 @@ hr { border: none !important; border-top: 1px solid rgba(124,111,255,0.15) !impo
     box-shadow: 0 0 12px rgba(0, 216, 255, 0.6) !important;
     width: 18px !important;
     height: 18px !important;
-    transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.18s !important;
+    /* Do NOT transition transform, as it causes terrible lag/stutter while dragging! Only transition glow. */
+    transition: box-shadow 0.15s ease !important;
 }
 [data-testid="stSlider"] [role="slider"]:hover, .stSlider [role="slider"]:hover {
-    transform: scale(1.22) !important;
     box-shadow: 0 0 20px rgba(0, 216, 255, 0.95) !important;
 }
 /* Value and label nodes */
