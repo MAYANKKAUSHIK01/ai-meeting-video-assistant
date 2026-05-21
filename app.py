@@ -990,3 +990,6 @@ else:
             <span class="tag tag-dim">RAG Chat</span>
         </div>
     </div>""", unsafe_allow_html=True)
+            <span class="tag tag-dim">RAG Chat</span>
+        </div>
+    </div>""", unsafe_allow_html=True)
