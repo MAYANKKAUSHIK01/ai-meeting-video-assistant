@@ -608,20 +608,39 @@ footer                             { display: none !important; }
 [data-testid="stDeployButton"]     { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 .stDeployButton                    { display: none !important; }
-/* Hide only header toolbar content, NOT the header wrapper itself
-   (header wrapper contains the sidebar collapse/expand toggle) */
-header[data-testid="stHeader"] > div:first-child { display: none !important; }
-/* Always keep the sidebar toggle button visible */
-[data-testid="stSidebarCollapseButton"],
-[data-testid="collapsedControl"] {
+
+/* Make header invisible WITHOUT display:none.
+   display:none would also hide the sidebar toggle inside it. */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+}
+
+/* Pin the sidebar toggle as a floating fixed button so it is ALWAYS
+   visible and clickable even when the header has zero height. */
+[data-testid="stSidebarCollapseButton"] {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+    position: fixed !important;
+    top: 0.5rem !important;
+    left: 0.5rem !important;
+    z-index: 999999 !important;
+    background: rgba(13, 21, 38, 0.85) !important;
+    border: 1px solid rgba(124, 111, 255, 0.25) !important;
+    border-radius: 8px !important;
+    backdrop-filter: blur(6px) !important;
 }
+
 /* Keep the top animated stripe visible */
 .stApp::before {
     display: block !important;
 }
+
 
 /* ── Custom High-Fidelity Slider ── */
 [data-testid="stSlider"], .stSlider {
