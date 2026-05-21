@@ -53,6 +53,35 @@ html, body, .stApp {
     color: #E8F4FD !important;
 }
 
+/* Force ALL text to be light — prevents white-on-white on Streamlit Cloud */
+p, span, div, label, li, a, td, th, small,
+.stMarkdown, .stMarkdown *, .stText,
+[data-testid="stMarkdownContainer"],
+[data-testid="stMarkdownContainer"] *,
+[data-testid="stWidgetLabel"],
+[data-testid="stWidgetLabel"] *,
+[data-baseweb="select"] *,
+[data-baseweb="input"] *,
+[data-baseweb="textarea"] *,
+[data-baseweb="radio"] *,
+[data-baseweb="checkbox"] *,
+.stSelectbox *, .stRadio *, .stCheckbox *,
+.stTextInput *, .stTextArea *,
+[class*="st-"] {
+    color: #E8F4FD !important;
+}
+
+/* Selectbox dropdown option items */
+[data-baseweb="menu"] li,
+[data-baseweb="menu"] [role="option"],
+[role="listbox"] [role="option"],
+[role="option"] { color: #E8F4FD !important; background: #0D1526 !important; }
+[role="option"]:hover { background: rgba(124,111,255,0.15) !important; }
+
+/* Info/success/warning/error boxes */
+.stAlert, .stAlert * { color: #E8F4FD !important; }
+
+
 /* Apply custom font ONLY to actual text elements, strictly avoiding Streamlit UI controls */
 h1, h2, h3, h4, h5, h6,
 .stMarkdown, .stMarkdown p, li, a, .stAlert,

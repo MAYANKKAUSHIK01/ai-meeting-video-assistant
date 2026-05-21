@@ -1,19 +1,22 @@
 [client]
 # "minimal" hides the Deploy button and most toolbar chrome.
-# "viewer" keeps a minimal toolbar but still hides Deploy.
-# Use "developer" locally if you need full debugging tools.
 toolbarMode = "minimal"
 
 [browser]
-# Disable anonymous usage statistics reporting to Streamlit.
 gatherUsageStats = false
 
 [runner]
-# Fixes module import warnings in some setups.
 magicEnabled = false
 
 [server]
-# enableCORS and enableXsrfProtection cannot both be set to incompatible values.
-# Default: enableCORS=true, enableXsrfProtection=true (secure and compatible).
 headless = true
 enableXsrfProtection = true
+
+[theme]
+# Force dark theme on Streamlit Cloud — prevents white-on-white text bugs.
+base = "dark"
+backgroundColor = "#090E1A"
+secondaryBackgroundColor = "#0D1526"
+primaryColor = "#7C6FFF"
+textColor = "#E8F4FD"
+font = "sans serif"
