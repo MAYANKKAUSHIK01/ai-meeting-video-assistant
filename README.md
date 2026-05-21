@@ -88,8 +88,8 @@ lens-meeting-intelligence/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/lens-meeting-intelligence.git
-cd lens-meeting-intelligence
+git clone https://github.com/MAYANKKAUSHIK01/ai-meeting-video-assistant.git
+cd ai-meeting-video-assistant
 ```
 
 ### 2. Create a virtual environment
