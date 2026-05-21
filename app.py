@@ -609,8 +609,7 @@ footer                             { display: none !important; }
 [data-testid="stDecoration"]       { display: none !important; }
 .stDeployButton                    { display: none !important; }
 
-/* Make header invisible WITHOUT display:none.
-   display:none would also hide the sidebar toggle inside it. */
+/* Make header invisible WITHOUT display:none */
 header[data-testid="stHeader"] {
     background: transparent !important;
     border-bottom: none !important;
@@ -620,8 +619,16 @@ header[data-testid="stHeader"] {
     overflow: visible !important;
 }
 
-/* Pin the sidebar toggle as a floating fixed button so it is ALWAYS
-   visible and clickable even when the header has zero height. */
+/* Force sidebar to always be visible — override Streamlit's collapse transform */
+[data-testid="stSidebar"] {
+    transform: none !important;
+    width: 21rem !important;
+    min-width: 21rem !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* Pin sidebar toggle as floating button — vivid so it stands out */
 [data-testid="stSidebarCollapseButton"] {
     display: flex !important;
     visibility: visible !important;
@@ -630,10 +637,16 @@ header[data-testid="stHeader"] {
     top: 0.5rem !important;
     left: 0.5rem !important;
     z-index: 999999 !important;
-    background: rgba(13, 21, 38, 0.85) !important;
-    border: 1px solid rgba(124, 111, 255, 0.25) !important;
+    background: #7C6FFF !important;
+    border: none !important;
     border-radius: 8px !important;
-    backdrop-filter: blur(6px) !important;
+    padding: 0.3rem !important;
+    color: #fff !important;
+}
+[data-testid="stSidebarCollapseButton"] svg {
+    fill: #fff !important;
+    stroke: #fff !important;
+    color: #fff !important;
 }
 
 /* Keep the top animated stripe visible */
