@@ -1,0 +1,67 @@
+# ── LENS Meeting Intelligence ── requirements.txt ─────────────────────────────
+# Python >= 3.10 required
+#
+# All versions are pinned to the verified working environment (>=X.Y.Z floor).
+# This prevents deployment failures from breaking changes in major upgrades.
+#
+# Streamlit Cloud note:
+#   - torch installs its CPU-only build automatically on Linux (no GPU packages needed).
+#   - Set WHISPER_MODEL=tiny or base in Streamlit Secrets to avoid OOM on free tier.
+#   - FFmpeg is bundled via imageio-ffmpeg — no system-level install required.
+
+# ── Audio / Video acquisition ─────────────────────────────────────────────────
+yt-dlp>=2026.3.17             # YouTube audio download
+pydub>=0.25.1                 # Audio manipulation (chunking, format conversion)
+imageio-ffmpeg>=0.6.0         # Bundled FFmpeg binary — no system install needed
+
+# ── Speech-to-Text (Whisper) ──────────────────────────────────────────────────
+openai-whisper>=20250625      # Local Whisper STT model (date-versioned)
+torch>=2.12.0                 # PyTorch — GPU/CPU backend for Whisper
+torchaudio>=2.11.0            # Audio ops for PyTorch
+torchvision>=0.27.0           # Vision ops (torch ecosystem — installed alongside torch)
+numba>=0.61.0                 # JIT compiler required internally by openai-whisper
+llvmlite>=0.44.0              # LLVM bindings required by numba
+
+# ── Torch internal dependencies ───────────────────────────────────────────────
+sympy>=1.14.0                 # Symbolic math required by torch
+filelock>=3.20.0              # File locking required by torch / HuggingFace Hub
+fsspec>=2026.4.0              # Filesystem abstraction required by torch
+jinja2>=3.1.6                 # Templating required by torch
+networkx>=3.5                 # Graph library required by torch
+mpmath>=1.3.0                 # Arbitrary precision math required by sympy/torch
+
+# ── LLM Orchestration (LangChain + Mistral) ───────────────────────────────────
+langchain>=1.3.1
+langchain-core>=1.4.0
+langchain-community>=0.4.1
+langchain-mistralai>=1.1.4    # LangChain <-> Mistral AI wrapper
+langchain-text-splitters>=1.1.2
+mistralai>=1.12.4             # Official Mistral AI Python client
+httpx>=0.28.1                 # Async HTTP client required by mistralai
+
+# ── RAG / Vector Store (ChromaDB + HuggingFace) ───────────────────────────────
+langchain-chroma>=1.1.0       # LangChain <-> ChromaDB bridge
+chromadb>=1.5.9               # Local persistent vector store
+onnxruntime>=1.26.0           # ONNX runtime required by chromadb default embedder
+sentence-transformers>=5.5.0  # HuggingFace sentence embedding models
+langchain-huggingface>=1.2.2  # LangChain <-> HuggingFace bridge
+huggingface-hub>=1.15.0       # Model downloading from HuggingFace Hub
+transformers>=5.8.1           # HuggingFace model library (required by sentence-transformers)
+tokenizers>=0.22.2            # Fast HuggingFace tokenizers
+safetensors>=0.7.0            # Safe model weight loading format
+
+# ── Scientific / ML utilities ─────────────────────────────────────────────────
+scipy>=1.15.3                 # Scientific computing (required by sentence-transformers)
+scikit-learn>=1.8.0           # ML utilities (required by sentence-transformers)
+numpy>=1.26.4                 # Array computing (required by torch, whisper, numpy)
+regex>=2026.5.9               # Advanced regex (required by tiktoken)
+
+# ── Streamlit UI ──────────────────────────────────────────────────────────────
+streamlit>=1.50.0
+watchdog>=6.0.0               # Faster hot-reload in development
+aiohttp>=3.13.5               # Async HTTP (required by LangChain async ops)
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dotenv>=1.2.2          # Load .env API keys
+requests>=2.32.5              # Sarvam AI API calls (sync HTTP)
+tiktoken>=0.13.0              # Token counting for LangChain text splitters

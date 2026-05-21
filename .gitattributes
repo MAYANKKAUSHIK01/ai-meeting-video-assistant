@@ -1,0 +1,16 @@
+# Ensure consistent line endings across Windows/macOS/Linux
+* text=auto eol=lf
+
+# Treat bat files as Windows line endings
+*.bat text eol=crlf
+
+# Binary files — never touch line endings
+*.wav binary
+*.mp3 binary
+*.mp4 binary
+*.exe binary
+*.sqlite3 binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
