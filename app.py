@@ -690,6 +690,16 @@ with st.sidebar:
     else:
         st.info("Hinglish uses Sarvam AI's high-speed GPU API.")
         
+    # Dynamic chunk size selector
+    chunk_minutes = st.slider(
+        "Audio Chunk Size (minutes)",
+        min_value=5,
+        max_value=30,
+        value=10,
+        step=5,
+        help="Slices the audio into smaller parts. 10 minutes is optimal for typical meetings."
+    )
+        
     run_btn = st.button("⚡  Run Analysis", use_container_width=True)
 
     sidebar_placeholder = st.empty()
@@ -736,7 +746,7 @@ if run_btn:
                 Pipeline initialised — monitor progress in the sidebar.
             </div>""", unsafe_allow_html=True)
 
-            tick("audio", "active");      chunks     = process_input(source);               tick("audio", "done")
+            tick("audio", "active");      chunks     = process_input(source, chunk_minutes=chunk_minutes);               tick("audio", "done")
             tick("transcript", "active"); transcript = transcribe_all(chunks, language, model_size=model_size);    tick("transcript", "done")
             tick("title", "active");      title      = generate_title(transcript);          tick("title", "done")
             tick("summary", "active");    summary    = summarize(transcript);               tick("summary", "done")

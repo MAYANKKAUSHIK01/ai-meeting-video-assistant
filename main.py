@@ -46,8 +46,14 @@ def main() -> None:
     if language == "english":
         model_size = input("Whisper Model Size (tiny / base / small / medium) [base]: ").strip().lower() or "base"
 
+    try:
+        chunk_minutes = input("Audio Chunk Size in minutes [10]: ").strip() or "10"
+        chunk_minutes = int(chunk_minutes)
+    except ValueError:
+        chunk_minutes = 10
+
     print("\nRunning pipeline… this may take a few minutes.\n")
-    result = run_pipeline(source, language, model_size=model_size)
+    result = run_pipeline(source, language, model_size=model_size, chunk_minutes=chunk_minutes)
 
     _section("📌 TITLE", result["title"])
     _section("📋 SUMMARY", result["summary"])

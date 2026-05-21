@@ -24,6 +24,7 @@ def run_pipeline(
     source: str,
     language: str = "english",
     model_size: str = "base",
+    chunk_minutes: int = 10,
     on_step: callable | None = None,
 ) -> dict:
     """
@@ -33,6 +34,7 @@ def run_pipeline(
         source:   YouTube URL or absolute/relative path to a local media file.
         language: Transcription language — "english" (Whisper) or "hinglish" (Sarvam).
         model_size: Model size for Local Whisper — "tiny" | "base" | "small" | "medium".
+        chunk_minutes: Audio split duration in minutes.
         on_step:  Optional callback invoked as on_step(step_key, state) where
                   state is "active" | "done" | "failed". Used by the Streamlit
                   UI to update the progress sidebar without coupling this module
@@ -50,7 +52,7 @@ def run_pipeline(
 
     # ── Step 1: Audio acquisition ─────────────────────────────────────────────
     _tick("audio", "active")
-    chunks = process_input(source)
+    chunks = process_input(source, chunk_minutes=chunk_minutes)
     _tick("audio", "done")
 
     # ── Step 2: Transcription ─────────────────────────────────────────────────

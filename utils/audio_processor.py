@@ -143,7 +143,7 @@ def chunk_audio(wav_path: str, chunk_minutes: int = AUDIO_CHUNK_MINUTES) -> list
     return chunks
 
 
-def process_input(source: str) -> list[str]:
+def process_input(source: str, chunk_minutes: int = AUDIO_CHUNK_MINUTES) -> list[str]:
     """
     Top-level entry point for the audio pipeline.
 
@@ -161,6 +161,6 @@ def process_input(source: str) -> list[str]:
         logger.info("Detected local file — converting: %s", source)
         wav_path = convert_to_wav(source)
 
-    chunks = chunk_audio(wav_path)
+    chunks = chunk_audio(wav_path, chunk_minutes=chunk_minutes)
     logger.info("process_input complete: %d chunk(s) ready.", len(chunks))
     return chunks
