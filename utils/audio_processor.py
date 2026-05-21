@@ -74,14 +74,12 @@ def download_youtube_audio(url: str) -> str:
         ],
         # ── Cloud bypass ──────────────────────────────────────────────────────
         # Aggressive bypass for AWS/GCP IPs:
-        # 1. Clear cache to prevent reusing banned tokens
-        # 2. Skip webpage JS loading which triggers captchas
-        # 3. Use ios/tv/mweb clients natively
         "rm_cachedir": True,
         "extractor_args": {
             "youtube": {
-                "player_client": ["ios", "tv", "mweb"],
-                "player_skip": ["webpage", "configs", "js"],
+                # TV and mweb are less restricted than iOS and don't trigger
+                # the 403 Forbidden wall as aggressively.
+                "player_client": ["tv", "mweb"],
             }
         },
         # ─────────────────────────────────────────────────────────────────────
