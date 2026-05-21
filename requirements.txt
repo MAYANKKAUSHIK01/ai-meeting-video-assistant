@@ -17,6 +17,7 @@ imageio-ffmpeg>=0.6.0         # Bundled FFmpeg binary — no system install need
 
 
 # ── Speech-to-Text (Whisper) ──────────────────────────────────────────────────
+faster-whisper>=1.0.3         # 6x faster CTranslate2 implementation of Whisper
 openai-whisper>=20250625      # Local Whisper STT model (date-versioned)
 torch>=2.12.0                 # PyTorch — GPU/CPU backend for Whisper
 torchaudio>=2.11.0            # Audio ops for PyTorch
