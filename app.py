@@ -118,19 +118,20 @@ html, body { background: #090E1A !important; }
 [data-testid="stSidebar"] label {
     font-family: 'Poppins', sans-serif !important;
 }
-[data-testid="stSidebar"] .stTextInput > div > div > input {
+.stTextInput input {
     background: rgba(255,255,255,0.05) !important;
     border: 1px solid rgba(124,111,255,0.22) !important;
     border-radius: 10px !important;
     color: #E8F4FD !important;
+    -webkit-text-fill-color: #E8F4FD !important; /* Force visibility on WebKit browsers */
     font-family: 'Nunito', sans-serif !important;
     font-size: 0.9rem !important;
     padding: 0.6rem 0.9rem !important;
 }
-[data-testid="stSidebar"] .stTextInput > div > div > input::placeholder {
+.stTextInput input::placeholder {
     color: rgba(184,212,238,0.3) !important;
 }
-[data-testid="stSidebar"] .stTextInput > div > div > input:focus {
+.stTextInput input:focus {
     border-color: #7C6FFF !important;
     background: rgba(124,111,255,0.08) !important;
     box-shadow: 0 0 0 3px rgba(124,111,255,0.15) !important;
