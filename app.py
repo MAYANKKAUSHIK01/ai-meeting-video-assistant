@@ -671,6 +671,25 @@ with st.sidebar:
         label_visibility="visible",
     )
     language = st.selectbox("Language", ["english", "hinglish"], index=0)
+    
+    # Model size selector for Local Whisper
+    model_size = "base"
+    if language == "english":
+        model_size = st.selectbox(
+            "Whisper Model Size",
+            ["tiny", "base", "small", "medium"],
+            index=1,  # Default to base (blazingly fast on CPU)
+            format_func=lambda x: {
+                "tiny": "⚡⚡⚡ tiny (fastest)",
+                "base": "⚡ base (balanced)",
+                "small": "🐢 small (accurate)",
+                "medium": "🐢🐢 medium (heavy)",
+            }[x],
+            help="Smaller models are much faster on CPU but slightly less accurate."
+        )
+    else:
+        st.info("Hinglish uses Sarvam AI's high-speed GPU API.")
+        
     run_btn = st.button("⚡  Run Analysis", use_container_width=True)
 
     sidebar_placeholder = st.empty()
@@ -718,7 +737,7 @@ if run_btn:
             </div>""", unsafe_allow_html=True)
 
             tick("audio", "active");      chunks     = process_input(source);               tick("audio", "done")
-            tick("transcript", "active"); transcript = transcribe_all(chunks, language);    tick("transcript", "done")
+            tick("transcript", "active"); transcript = transcribe_all(chunks, language, model_size=model_size);    tick("transcript", "done")
             tick("title", "active");      title      = generate_title(transcript);          tick("title", "done")
             tick("summary", "active");    summary    = summarize(transcript);               tick("summary", "done")
 

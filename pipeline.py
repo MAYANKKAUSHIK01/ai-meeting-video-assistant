@@ -23,6 +23,7 @@ logger = logging.getLogger(__name__)
 def run_pipeline(
     source: str,
     language: str = "english",
+    model_size: str = "base",
     on_step: callable | None = None,
 ) -> dict:
     """
@@ -31,6 +32,7 @@ def run_pipeline(
     Args:
         source:   YouTube URL or absolute/relative path to a local media file.
         language: Transcription language — "english" (Whisper) or "hinglish" (Sarvam).
+        model_size: Model size for Local Whisper — "tiny" | "base" | "small" | "medium".
         on_step:  Optional callback invoked as on_step(step_key, state) where
                   state is "active" | "done" | "failed". Used by the Streamlit
                   UI to update the progress sidebar without coupling this module
@@ -53,7 +55,7 @@ def run_pipeline(
 
     # ── Step 2: Transcription ─────────────────────────────────────────────────
     _tick("transcript", "active")
-    transcript = transcribe_all(chunks, language)
+    transcript = transcribe_all(chunks, language, model_size=model_size)
     logger.info("Transcript preview: %s…", transcript[:200])
     _tick("transcript", "done")
 

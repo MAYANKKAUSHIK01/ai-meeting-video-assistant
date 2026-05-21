@@ -40,10 +40,14 @@ def main() -> None:
         print("Error: source cannot be empty.")
         sys.exit(1)
 
-    language = input("Language (english / hinglish) [english]: ").strip() or "english"
+    language = input("Language (english / hinglish) [english]: ").strip().lower() or "english"
+
+    model_size = "base"
+    if language == "english":
+        model_size = input("Whisper Model Size (tiny / base / small / medium) [base]: ").strip().lower() or "base"
 
     print("\nRunning pipeline… this may take a few minutes.\n")
-    result = run_pipeline(source, language)
+    result = run_pipeline(source, language, model_size=model_size)
 
     _section("📌 TITLE", result["title"])
     _section("📋 SUMMARY", result["summary"])
