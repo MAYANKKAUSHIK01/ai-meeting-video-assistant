@@ -73,15 +73,7 @@ def download_youtube_audio(url: str) -> str:
             }
         ],
         # ── Cloud bypass ──────────────────────────────────────────────────────
-        # Aggressive bypass for AWS/GCP IPs:
         "rm_cachedir": True,
-        "extractor_args": {
-            "youtube": {
-                # 'tv' client triggers fake DRM streams.
-                # 'web_creator' and 'mweb' are the safest remaining fallbacks.
-                "player_client": ["web_creator", "mweb"],
-            }
-        },
         # ─────────────────────────────────────────────────────────────────────
         # Sanitise the title so the filename is always safe on all OSes
         "restrictfilenames": True,
