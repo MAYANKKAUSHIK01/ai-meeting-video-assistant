@@ -71,6 +71,17 @@ def download_youtube_audio(url: str) -> str:
                 "preferredquality": "192",
             }
         ],
+        # Bypasses cloud hosting/data-center IP bans by pretending to be a mobile or embedded client
+        "extractor_args": {
+            "youtube": {
+                "player_client": ["android", "web_embedded"]
+            }
+        },
+        "http_headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
         # Sanitise the title so the filename is always safe on all OSes
         "restrictfilenames": True,
         "quiet": True,
