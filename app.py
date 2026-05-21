@@ -594,6 +594,83 @@ hr { border: none !important; border-top: 1px solid rgba(124,111,255,0.15) !impo
     font-weight: 400;
 }
 
+/* ── Hide Streamlit chrome (toolbar, deploy button, header, footer) ── */
+#MainMenu                          { display: none !important; }
+header[data-testid="stHeader"]     { display: none !important; }
+footer                             { display: none !important; }
+[data-testid="stToolbar"]          { display: none !important; }
+[data-testid="stDeployButton"]     { display: none !important; }
+[data-testid="stDecoration"]       { display: none !important; }
+.stDeployButton                    { display: none !important; }
+/* Keep the top animated stripe visible despite header being hidden */
+.stApp::before {
+    display: block !important;
+}
+
+/* ── Custom High-Fidelity Slider ── */
+[data-testid="stSlider"], .stSlider {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(124, 111, 255, 0.15) !important;
+    border-radius: 12px !important;
+    padding: 1.1rem 1.2rem 0.9rem 1.2rem !important;
+    margin-bottom: 1.2rem !important;
+    transition: border-color 0.22s, box-shadow 0.22s !important;
+}
+[data-testid="stSlider"]:hover, .stSlider:hover {
+    border-color: rgba(124, 111, 255, 0.3) !important;
+    box-shadow: 0 4px 18px rgba(124, 111, 255, 0.06) !important;
+}
+[data-testid="stSlider"] label, .stSlider label {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    color: #A99BFF !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 0.75rem !important;
+    text-transform: uppercase !important;
+}
+/* Base track styling */
+[data-testid="stSlider"] [data-baseweb="slider"] > div, .stSlider [data-baseweb="slider"] > div {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    height: 6px !important;
+    border-radius: 4px !important;
+}
+/* Selected range track (glowing gradient) */
+[data-testid="stSlider"] [data-baseweb="slider"] > div > div, .stSlider [data-baseweb="slider"] > div > div {
+    background: linear-gradient(90deg, #7C6FFF, #00D8FF) !important;
+    height: 6px !important;
+    border-radius: 4px !important;
+}
+/* Thumb knob */
+[data-testid="stSlider"] [role="slider"], .stSlider [role="slider"] {
+    background-color: #090E1A !important;
+    border: 2px solid #00D8FF !important;
+    box-shadow: 0 0 12px rgba(0, 216, 255, 0.6) !important;
+    width: 18px !important;
+    height: 18px !important;
+    transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.18s !important;
+}
+[data-testid="stSlider"] [role="slider"]:hover, .stSlider [role="slider"]:hover {
+    transform: scale(1.22) !important;
+    box-shadow: 0 0 20px rgba(0, 216, 255, 0.95) !important;
+}
+/* Value and label nodes */
+[data-testid="stSlider"] div[data-baseweb="slider"] ~ div, .stSlider div[data-baseweb="slider"] ~ div {
+    color: #E8F4FD !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+}
+
+/* ── Hide "Press Enter to apply" helpers globally ── */
+[data-testid="InputInstructions"], .stTextInput small {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
 @media (max-width: 768px) {
     .main .block-container {
         padding-left: 0.85rem !important;
